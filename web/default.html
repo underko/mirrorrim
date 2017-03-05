@@ -1,0 +1,32 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>MirrorriM</title>
+        <meta name="author" content="underko">
+
+        <script src="./jquery-3.1.1.min.js"></script>
+        <script src="./jquery.simpleWeather.min.js"></script>
+        <script src="./datetime.js"></script>
+
+        <link rel="stylesheet" href="style.css">
+
+    </head>
+
+    <body>
+
+        <div id="datetime"></div>
+        </br></br>
+        <div id="weather"></div>
+
+        <script>
+            window.onload = get_datetime('datetime');
+            window.onload = get_weather('weather');
+        </script>
+
+    </body>
+
+</html>
