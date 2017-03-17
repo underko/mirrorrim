@@ -1,4 +1,4 @@
-# magic mirror main file by xjanockom
+# interactive mirror by xjanockom
 
 import time
 

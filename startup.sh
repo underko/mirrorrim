@@ -8,5 +8,9 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
+# hide mouse pointer when inactive
+unclutter -idle 1 &
+
+# open chromium windows with mirror screens for faster switching between them
 chromium-browser --disable-web-security --user-data-dir --new-window --kiosk --test-type "$DIR/web/imhd_timetable.html" &
 chromium-browser --disable-web-security --user-data-dir --new-window --kiosk --test-type "$DIR/web/default_screen.html" &
