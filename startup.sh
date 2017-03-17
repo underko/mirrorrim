@@ -8,5 +8,5 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
-chromium-browser --disable-web-security --user-data-dir --new-window --kiosk "$DIR/web/default_screen.html" &
-chromium-browser --disable-web-security --user-data-dir --new-window --kiosk "$DIR/web/imhd_timetable.html" &
+chromium-browser --disable-web-security --user-data-dir --new-window --kiosk --test-type "$DIR/web/default_screen.html" &
+chromium-browser --disable-web-security --user-data-dir --new-window --kiosk --test-type "$DIR/web/imhd_timetable.html" &
