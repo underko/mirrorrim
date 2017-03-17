@@ -1,0 +1,80 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="sk" lang="sk">
+    <head>
+        
+    <link href="https://imhd.sk/data/css/fonts_zastavkova_tabula.css" rel="stylesheet" type="text/css" />
+    <link href="https://imhd.sk/data/js/online/zastavkova_tabula.css" rel="stylesheet" type="text/css" />
+    <link href="https://imhd.sk/data/js/online/zastavkova_tabula_zaklad.css" rel="stylesheet" type="text/css" />
+    <link href="https://imhd.sk/data/js/online/zastavkova_tabula_0.css" rel="stylesheet" type="text/css" />
+    <link href="https://imhd.sk/data/css/linky.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="text/javascript" src="https://imhd.sk/data/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="https://imhd.sk/data/js/jquery.flowtype.js"></script>
+    <script type="text/javascript" src="https://imhd.sk/rt/sio/socket.io.js"></script>
+    <script type="text/javascript" src="./zastavkova-tabula.js"></script>
+
+    </head>
+
+<body id="ba">
+    <script type="text/javascript">
+        $('body').flowtype({
+            fontRatio : 30,
+            lineRatio : 1,
+            maxFont : 40
+        });
+    </script>
+
+<div id="tabulaDiv" style="clear: both"><table id="tabula">
+    <thead id="hlavicka">
+        <tr>
+            <th class="colL">Linka</th>
+            <th class="colS">Smer</th>
+            <th class="colC" id="hodiny" colspan="2"></th>		
+        </tr>
+    </thead>
+</div>
+
+<script type="text/javascript">
+
+riadky=30;
+klimatizovane = false;
+vozidlaInfo = true;
+
+zastavka=308;
+zastavkaNazov="Nemocnica Ružinov";
+
+nastupiste=[1,2,3,4];
+nastupiste_oznacenie=null;
+
+api_url = "/ba/api/sk/cp?";
+web="ba";
+logobarHover="Klikni pre viac informácií, autorské práva a podmienky používania...";
+infoHref="?info=copyright";
+vypinat=1;
+minDisp=0;
+scroll=1;
+
+t={"Hladam_najblizsiu_zastavku":"H\u013ead\u00e1m najbli\u017e\u0161iu zast\u00e1vku","prehliadac_nepodporuje_geolocation":"Tento prehliada\u010d nepodporuje zis\u0165ovanie polohy, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku.","zastavka_v_blizkosti_nenajdena":"Nepodarilo sa n\u00e1js\u0165 \u017eiadnu zast\u00e1vku v bl\u00edzkosti.","neposkytnuta_geolocation":"Nie je zn\u00e1ma aktu\u00e1lna poloha, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku. Na zistenie najbli\u017e\u0161ej zast\u00e1vky je potrebn\u00e9 povoli\u0165 zasielanie inform\u00e1ci\u00ed o polohe.","nedostupna_geolocation":"Inform\u00e1cia o aktu\u00e1lnej polohe je nedostupn\u00e1, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku. Ak je zariadenie vybaven\u00e9 prij\u00edma\u010dom GPS sign\u00e1lu, je nutn\u00e9 ho zapn\u00fa\u0165 a zariadenie umiestni\u0165 v dosahu sign\u00e1lu GPS.","cas_geolocation_vyprsal":"\u010cas na zistenie aktu\u00e1lnej polohy vypr\u0161al, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku.","chyba_pri_urcovani_geolocation":"Chyba pri ur\u010dovan\u00ed polohy."};
+t.status0="Služba je odpojená";
+t.statusE="Chyba";
+t.statusX=" ";
+t.Opatovne_pripojenie="Opätovné pripojenie o";
+t.Pripajam_sa="Pripájam sa";
+t.Ocakavany_odchod="Očakávaný odchod";
+t.meska="mešká";
+t.v_predstihu="v predstihu";
+t.Odchod_CP="Odchod podľa cestovného poriadku";
+t.Zastavka_neobsluhovana="Zastávka nie je v najbližších hodinách obsluhovaná";
+t.nastupiste="nástupište";
+
+$(document).ready(function () {
+	initTab(zastavka, nastupiste);
+});
+</script>
+</body>
+</html>

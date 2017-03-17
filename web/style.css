@@ -21,3 +21,48 @@ h1 {
 #weather {
     font-size: 2.5em;
 }
+
+th, td { 
+    padding: 10px; 
+}
+
+table#tabula tfoot td {
+	font-size: 50%;
+	padding-top: 0.2em;
+	margin: 0;
+	line-height: 1em;
+	text-align: center;
+}
+
+th.colL {
+	text-align: center;
+}
+
+th.colS {
+	text-align: left;
+}
+
+th.colC {
+	text-align: right;
+}
+
+td.colL {
+	font-weight: bold;
+	text-align: center;
+	width: 12%;
+}
+
+td.colC {
+	text-align: right;
+	width: 18%;
+}
+
+th.colX,
+td.colX {
+	text-align: right;
+	width: 5%;
+}
+
+#topDiv, #logobar {
+    height: 0px;
+}
