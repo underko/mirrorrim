@@ -1,80 +1,283 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="sk" lang="sk">
-    <head>
-        
-    <link href="https://imhd.sk/data/css/fonts_zastavkova_tabula.css" rel="stylesheet" type="text/css" />
-    <link href="https://imhd.sk/data/js/online/zastavkova_tabula.css" rel="stylesheet" type="text/css" />
-    <link href="https://imhd.sk/data/js/online/zastavkova_tabula_zaklad.css" rel="stylesheet" type="text/css" />
-    <link href="https://imhd.sk/data/js/online/zastavkova_tabula_0.css" rel="stylesheet" type="text/css" />
-    <link href="https://imhd.sk/data/css/linky.css" rel="stylesheet" type="text/css" />
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="style.css">
+      <title>MirrorriM</title>
+      <meta name="author" content="underko">
 
-    <script type="text/javascript" src="https://imhd.sk/data/js/jquery-1.6.2.min.js"></script>
-    <script type="text/javascript" src="https://imhd.sk/data/js/jquery.flowtype.js"></script>
-    <script type="text/javascript" src="https://imhd.sk/rt/sio/socket.io.js"></script>
-    <script type="text/javascript" src="./zastavkova-tabula.js"></script>
+      <link rel="stylesheet" href="style.css">
 
-    </head>
+      <script type="text/javascript" src="./jquery-1.6.2.min.js"></script>
+      <script type="text/javascript" src="./jquery.flowtype.js"></script>
+      <script type="text/javascript" src="./socket.io.js"></script>
+      <script type="text/javascript" src="./zastavkova-tabula.js"></script>
 
-<body id="ba">
-    <script type="text/javascript">
-        $('body').flowtype({
-            fontRatio : 30,
-            lineRatio : 1,
-            maxFont : 40
-        });
-    </script>
-
-<div id="tabulaDiv" style="clear: both"><table id="tabula">
-    <thead id="hlavicka">
-        <tr>
-            <th class="colL">Linka</th>
-            <th class="colS">Smer</th>
-            <th class="colC" id="hodiny" colspan="2"></th>		
-        </tr>
-    </thead>
-</div>
-
-<script type="text/javascript">
-
-riadky=30;
-klimatizovane = false;
-vozidlaInfo = true;
-
-zastavka=308;
-zastavkaNazov="Nemocnica Ružinov";
-
-nastupiste=[1,2,3,4];
-nastupiste_oznacenie=null;
-
-api_url = "/ba/api/sk/cp?";
-web="ba";
-logobarHover="Klikni pre viac informácií, autorské práva a podmienky používania...";
-infoHref="?info=copyright";
-vypinat=1;
-minDisp=0;
-scroll=1;
-
-t={"Hladam_najblizsiu_zastavku":"H\u013ead\u00e1m najbli\u017e\u0161iu zast\u00e1vku","prehliadac_nepodporuje_geolocation":"Tento prehliada\u010d nepodporuje zis\u0165ovanie polohy, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku.","zastavka_v_blizkosti_nenajdena":"Nepodarilo sa n\u00e1js\u0165 \u017eiadnu zast\u00e1vku v bl\u00edzkosti.","neposkytnuta_geolocation":"Nie je zn\u00e1ma aktu\u00e1lna poloha, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku. Na zistenie najbli\u017e\u0161ej zast\u00e1vky je potrebn\u00e9 povoli\u0165 zasielanie inform\u00e1ci\u00ed o polohe.","nedostupna_geolocation":"Inform\u00e1cia o aktu\u00e1lnej polohe je nedostupn\u00e1, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku. Ak je zariadenie vybaven\u00e9 prij\u00edma\u010dom GPS sign\u00e1lu, je nutn\u00e9 ho zapn\u00fa\u0165 a zariadenie umiestni\u0165 v dosahu sign\u00e1lu GPS.","cas_geolocation_vyprsal":"\u010cas na zistenie aktu\u00e1lnej polohy vypr\u0161al, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku.","chyba_pri_urcovani_geolocation":"Chyba pri ur\u010dovan\u00ed polohy."};
-t.status0="Služba je odpojená";
-t.statusE="Chyba";
-t.statusX=" ";
-t.Opatovne_pripojenie="Opätovné pripojenie o";
-t.Pripajam_sa="Pripájam sa";
-t.Ocakavany_odchod="Očakávaný odchod";
-t.meska="mešká";
-t.v_predstihu="v predstihu";
-t.Odchod_CP="Odchod podľa cestovného poriadku";
-t.Zastavka_neobsluhovana="Zastávka nie je v najbližších hodinách obsluhovaná";
-t.nastupiste="nástupište";
-
-$(document).ready(function () {
-	initTab(zastavka, nastupiste);
-});
-</script>
-</body>
+   </head>
+   <body id="ba">
+      <script type="text/javascript">$('body').flowtype({
+         fontRatio : 30,
+         lineRatio : 1,
+         maxFont : 40
+         });
+      </script>
+      <div id="topDiv" style="visibility: hidden;">
+         <table id="logobar">
+            <thead>
+               <tr>
+                  <td colspan="4" id="logobarInfo">
+                     <div id="zNazov"> </div>
+                  </td>
+               </tr>
+            </thead>
+         </table>
+      </div>
+      <div id="tabulaDiv" style="clear: both">
+         <table id="tabula">
+            <thead id="hlavicka">
+               <tr>
+                  <th class="colL">Line</th>
+                  <th class="colS">Destination</th>
+                  <th class="colC" id="hodiny" colspan="2"></th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr id="riadok0" style="display: table-row">
+                  <td class="colL tooltip" id="riadok0L"><span></span></td>
+                  <td class="colS tooltip" id="riadok0S">
+                     <span>
+                        <span style="font-size: 80%">
+                           Getting new data
+                           <div class="spinner">
+                              <div class="bounce1"></div>
+                              <div class="bounce2"></div>
+                              <div class="bounce3"></div>
+                           </div>
+                        </span>
+                     </span>
+                  </td>
+                  <td class="colC tooltip" id="riadok0C"><span></span></td>
+                  <td class="colX tooltip" id="riadok0X"><span></span></td>
+               </tr>
+               <tr id="riadok1">
+                  <td class="colL tooltip" id="riadok1L"><span></span></td>
+                  <td class="colS tooltip" id="riadok1S"><span></span></td>
+                  <td class="colC tooltip" id="riadok1C"><span></span></td>
+                  <td class="colX tooltip" id="riadok1X"><span></span></td>
+               </tr>
+               <tr id="riadok2">
+                  <td class="colL tooltip" id="riadok2L"><span></span></td>
+                  <td class="colS tooltip" id="riadok2S"><span></span></td>
+                  <td class="colC tooltip" id="riadok2C"><span></span></td>
+                  <td class="colX tooltip" id="riadok2X"><span></span></td>
+               </tr>
+               <tr id="riadok3">
+                  <td class="colL tooltip" id="riadok3L"><span></span></td>
+                  <td class="colS tooltip" id="riadok3S"><span></span></td>
+                  <td class="colC tooltip" id="riadok3C"><span></span></td>
+                  <td class="colX tooltip" id="riadok3X"><span></span></td>
+               </tr>
+               <tr id="riadok4">
+                  <td class="colL tooltip" id="riadok4L"><span></span></td>
+                  <td class="colS tooltip" id="riadok4S"><span></span></td>
+                  <td class="colC tooltip" id="riadok4C"><span></span></td>
+                  <td class="colX tooltip" id="riadok4X"><span></span></td>
+               </tr>
+               <tr id="riadok5">
+                  <td class="colL tooltip" id="riadok5L"><span></span></td>
+                  <td class="colS tooltip" id="riadok5S"><span></span></td>
+                  <td class="colC tooltip" id="riadok5C"><span></span></td>
+                  <td class="colX tooltip" id="riadok5X"><span></span></td>
+               </tr>
+               <tr id="riadok6">
+                  <td class="colL tooltip" id="riadok6L"><span></span></td>
+                  <td class="colS tooltip" id="riadok6S"><span></span></td>
+                  <td class="colC tooltip" id="riadok6C"><span></span></td>
+                  <td class="colX tooltip" id="riadok6X"><span></span></td>
+               </tr>
+               <tr id="riadok7">
+                  <td class="colL tooltip" id="riadok7L"><span></span></td>
+                  <td class="colS tooltip" id="riadok7S"><span></span></td>
+                  <td class="colC tooltip" id="riadok7C"><span></span></td>
+                  <td class="colX tooltip" id="riadok7X"><span></span></td>
+               </tr>
+               <tr id="riadok8">
+                  <td class="colL tooltip" id="riadok8L"><span></span></td>
+                  <td class="colS tooltip" id="riadok8S"><span></span></td>
+                  <td class="colC tooltip" id="riadok8C"><span></span></td>
+                  <td class="colX tooltip" id="riadok8X"><span></span></td>
+               </tr>
+               <tr id="riadok9">
+                  <td class="colL tooltip" id="riadok9L"><span></span></td>
+                  <td class="colS tooltip" id="riadok9S"><span></span></td>
+                  <td class="colC tooltip" id="riadok9C"><span></span></td>
+                  <td class="colX tooltip" id="riadok9X"><span></span></td>
+               </tr>
+               <tr id="riadok10">
+                  <td class="colL tooltip" id="riadok10L"><span></span></td>
+                  <td class="colS tooltip" id="riadok10S"><span></span></td>
+                  <td class="colC tooltip" id="riadok10C"><span></span></td>
+                  <td class="colX tooltip" id="riadok10X"><span></span></td>
+               </tr>
+               <tr id="riadok11">
+                  <td class="colL tooltip" id="riadok11L"><span></span></td>
+                  <td class="colS tooltip" id="riadok11S"><span></span></td>
+                  <td class="colC tooltip" id="riadok11C"><span></span></td>
+                  <td class="colX tooltip" id="riadok11X"><span></span></td>
+               </tr>
+               <tr id="riadok12">
+                  <td class="colL tooltip" id="riadok12L"><span></span></td>
+                  <td class="colS tooltip" id="riadok12S"><span></span></td>
+                  <td class="colC tooltip" id="riadok12C"><span></span></td>
+                  <td class="colX tooltip" id="riadok12X"><span></span></td>
+               </tr>
+               <tr id="riadok13">
+                  <td class="colL tooltip" id="riadok13L"><span></span></td>
+                  <td class="colS tooltip" id="riadok13S"><span></span></td>
+                  <td class="colC tooltip" id="riadok13C"><span></span></td>
+                  <td class="colX tooltip" id="riadok13X"><span></span></td>
+               </tr>
+               <tr id="riadok14">
+                  <td class="colL tooltip" id="riadok14L"><span></span></td>
+                  <td class="colS tooltip" id="riadok14S"><span></span></td>
+                  <td class="colC tooltip" id="riadok14C"><span></span></td>
+                  <td class="colX tooltip" id="riadok14X"><span></span></td>
+               </tr>
+               <tr id="riadok15">
+                  <td class="colL tooltip" id="riadok15L"><span></span></td>
+                  <td class="colS tooltip" id="riadok15S"><span></span></td>
+                  <td class="colC tooltip" id="riadok15C"><span></span></td>
+                  <td class="colX tooltip" id="riadok15X"><span></span></td>
+               </tr>
+               <tr id="riadok16">
+                  <td class="colL tooltip" id="riadok16L"><span></span></td>
+                  <td class="colS tooltip" id="riadok16S"><span></span></td>
+                  <td class="colC tooltip" id="riadok16C"><span></span></td>
+                  <td class="colX tooltip" id="riadok16X"><span></span></td>
+               </tr>
+               <tr id="riadok17">
+                  <td class="colL tooltip" id="riadok17L"><span></span></td>
+                  <td class="colS tooltip" id="riadok17S"><span></span></td>
+                  <td class="colC tooltip" id="riadok17C"><span></span></td>
+                  <td class="colX tooltip" id="riadok17X"><span></span></td>
+               </tr>
+               <tr id="riadok18">
+                  <td class="colL tooltip" id="riadok18L"><span></span></td>
+                  <td class="colS tooltip" id="riadok18S"><span></span></td>
+                  <td class="colC tooltip" id="riadok18C"><span></span></td>
+                  <td class="colX tooltip" id="riadok18X"><span></span></td>
+               </tr>
+               <tr id="riadok19">
+                  <td class="colL tooltip" id="riadok19L"><span></span></td>
+                  <td class="colS tooltip" id="riadok19S"><span></span></td>
+                  <td class="colC tooltip" id="riadok19C"><span></span></td>
+                  <td class="colX tooltip" id="riadok19X"><span></span></td>
+               </tr>
+               <tr id="riadok20">
+                  <td class="colL tooltip" id="riadok20L"><span></span></td>
+                  <td class="colS tooltip" id="riadok20S"><span></span></td>
+                  <td class="colC tooltip" id="riadok20C"><span></span></td>
+                  <td class="colX tooltip" id="riadok20X"><span></span></td>
+               </tr>
+               <tr id="riadok21">
+                  <td class="colL tooltip" id="riadok21L"><span></span></td>
+                  <td class="colS tooltip" id="riadok21S"><span></span></td>
+                  <td class="colC tooltip" id="riadok21C"><span></span></td>
+                  <td class="colX tooltip" id="riadok21X"><span></span></td>
+               </tr>
+               <tr id="riadok22">
+                  <td class="colL tooltip" id="riadok22L"><span></span></td>
+                  <td class="colS tooltip" id="riadok22S"><span></span></td>
+                  <td class="colC tooltip" id="riadok22C"><span></span></td>
+                  <td class="colX tooltip" id="riadok22X"><span></span></td>
+               </tr>
+               <tr id="riadok23">
+                  <td class="colL tooltip" id="riadok23L"><span></span></td>
+                  <td class="colS tooltip" id="riadok23S"><span></span></td>
+                  <td class="colC tooltip" id="riadok23C"><span></span></td>
+                  <td class="colX tooltip" id="riadok23X"><span></span></td>
+               </tr>
+               <tr id="riadok24">
+                  <td class="colL tooltip" id="riadok24L"><span></span></td>
+                  <td class="colS tooltip" id="riadok24S"><span></span></td>
+                  <td class="colC tooltip" id="riadok24C"><span></span></td>
+                  <td class="colX tooltip" id="riadok24X"><span></span></td>
+               </tr>
+               <tr id="riadok25">
+                  <td class="colL tooltip" id="riadok25L"><span></span></td>
+                  <td class="colS tooltip" id="riadok25S"><span></span></td>
+                  <td class="colC tooltip" id="riadok25C"><span></span></td>
+                  <td class="colX tooltip" id="riadok25X"><span></span></td>
+               </tr>
+               <tr id="riadok26">
+                  <td class="colL tooltip" id="riadok26L"><span></span></td>
+                  <td class="colS tooltip" id="riadok26S"><span></span></td>
+                  <td class="colC tooltip" id="riadok26C"><span></span></td>
+                  <td class="colX tooltip" id="riadok26X"><span></span></td>
+               </tr>
+               <tr id="riadok27">
+                  <td class="colL tooltip" id="riadok27L"><span></span></td>
+                  <td class="colS tooltip" id="riadok27S"><span></span></td>
+                  <td class="colC tooltip" id="riadok27C"><span></span></td>
+                  <td class="colX tooltip" id="riadok27X"><span></span></td>
+               </tr>
+               <tr id="riadok28">
+                  <td class="colL tooltip" id="riadok28L"><span></span></td>
+                  <td class="colS tooltip" id="riadok28S"><span></span></td>
+                  <td class="colC tooltip" id="riadok28C"><span></span></td>
+                  <td class="colX tooltip" id="riadok28X"><span></span></td>
+               </tr>
+               <tr id="riadok29">
+                  <td class="colL tooltip" id="riadok29L"><span></span></td>
+                  <td class="colS tooltip" id="riadok29S"><span></span></td>
+                  <td class="colC tooltip" id="riadok29C"><span></span></td>
+                  <td class="colX tooltip" id="riadok29X"><span></span></td>
+               </tr>
+         </table>
+      </div>
+      
+      <script type="text/javascript">$('body').flowtype({
+         fontRatio : 20,
+         minFont : 12,
+         lineRatio : 1
+         });
+      </script><script type="text/javascript">
+         riadky=30;
+         klimatizovane = false;
+         vozidlaInfo = true;
+         
+         zastavka=308;
+         zastavkaNazov="Nemocnica Ružinov";
+         
+         nastupiste=[1,2,3,4];
+         nastupiste_oznacenie=null;
+         
+         api_url = "https://imhd.sk/ba/api/sk/cp?";
+         web="ba";
+         logobarHover="Klikni pre viac informácií, autorské práva a podmienky používania...";
+         infoHref="?info=copyright";
+         vypinat=1;
+         minDisp=0;
+         scroll=1;
+         
+         t={"Hladam_najblizsiu_zastavku":"H\u013ead\u00e1m najbli\u017e\u0161iu zast\u00e1vku","prehliadac_nepodporuje_geolocation":"Tento prehliada\u010d nepodporuje zis\u0165ovanie polohy, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku.","zastavka_v_blizkosti_nenajdena":"Nepodarilo sa n\u00e1js\u0165 \u017eiadnu zast\u00e1vku v bl\u00edzkosti.","neposkytnuta_geolocation":"Nie je zn\u00e1ma aktu\u00e1lna poloha, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku. Na zistenie najbli\u017e\u0161ej zast\u00e1vky je potrebn\u00e9 povoli\u0165 zasielanie inform\u00e1ci\u00ed o polohe.","nedostupna_geolocation":"Inform\u00e1cia o aktu\u00e1lnej polohe je nedostupn\u00e1, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku. Ak je zariadenie vybaven\u00e9 prij\u00edma\u010dom GPS sign\u00e1lu, je nutn\u00e9 ho zapn\u00fa\u0165 a zariadenie umiestni\u0165 v dosahu sign\u00e1lu GPS.","cas_geolocation_vyprsal":"\u010cas na zistenie aktu\u00e1lnej polohy vypr\u0161al, preto nie je mo\u017en\u00e9 n\u00e1js\u0165 najbli\u017e\u0161iu zast\u00e1vku.","chyba_pri_urcovani_geolocation":"Chyba pri ur\u010dovan\u00ed polohy."};
+         t.status0="Služba je odpojená";
+         t.statusE="Chyba";
+         t.statusX=" ";
+         t.Opatovne_pripojenie="Opätovné pripojenie o";
+         t.Pripajam_sa="Pripájam sa";
+         t.Ocakavany_odchod="Očakávaný odchod";
+         t.meska="mešká";
+         t.v_predstihu="v predstihu";
+         t.Odchod_CP="Odchod podľa cestovného poriadku";
+         t.Zastavka_neobsluhovana="Zastávka nie je v najbližších hodinách obsluhovaná";
+         t.nastupiste="nástupište";
+         
+         $(document).ready(function () {
+          initTab(zastavka,nastupiste);
+         });
+      </script>
+   </body>
 </html>
