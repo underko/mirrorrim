@@ -499,7 +499,7 @@ function zobraz() {
 			if ((tab[i].typ == "online") && (typeof vozidla !== "undefined") && (vozidla[tab[i].issi] != undefined)) {
 				if (klimatizovane)
 					colX += (vozidla[tab[i].issi].ac == 1 ? '<span class="symbol">*</span>' : "");
-				colX += (vozidla[tab[i].issi].np == 1 ? '<span class="symbol"><img src="./stroller.png" width="48px"></span>' : "");
+				colX += (vozidla[tab[i].issi].np == 1 ? '<span class="symbol"><img src="./resource/stroller.png" width="48px"></span>' : "");
 				}
 			if ((nastupiste.length > 1) && (nastupiste_oznacenie != null) && (nastupiste_oznacenie[tab[i].nastupiste] != undefined))
 				colX += '<span class="nastupiste">' + nastupiste_oznacenie[tab[i].nastupiste] + '</span>';
