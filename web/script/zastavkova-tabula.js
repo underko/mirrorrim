@@ -495,11 +495,20 @@ function zobraz() {
 			if ((typeof ciele !== "undefined") && (typeof ciele[tab[i].ciel] !== "undefined")) {
 				colS = $('<div/>').html(ciele[tab[i].ciel]).html();
 				console.log("colS: " + colS);
-				/*for (var i = 0; i < not_city.length; i++) {
+
+				var found_match = false;
+
+				for (var i = 0; i < not_city.length; i++) {
 					if (colS.includes(not_city[i])) {
-						//
+						colS = '<img src="./resource/city.png" width="48px">' + colS;
+						found_match = true;
+						break;
 					}
-				}*/
+				}
+
+				if (!found_match) {
+					colS = "   " + colS;
+				}
 			}
 			else {
 				colS = "";
