@@ -27,7 +27,7 @@ convertL[">"] = "►";
 convertL["111"] = '<span class="symbol">*</span>';
 var maxTimeMin = 15;
 var minTimeShow = 2 * 60;	// min
-var maxTimeShow = 18 * 60;	// min
+var maxTimeShow = 30 * 60;	// min
 var minRowShow = 4;
 var scroll = 1;
 
@@ -427,6 +427,7 @@ function zobraz() {
 	}
 
 	// cielove zastavky smerom z mesta
+
 	var not_city = ["OD Slimák", "Astronomická"];
 	var currentTime = new Date();
 	var teraz = currentTime.getTime();
@@ -459,20 +460,11 @@ function zobraz() {
 		var cas = Math.floor(tab[i].cas / 60000) - Math.floor((teraz + tab[i].korekcia) / 60000);
 		casHM = d.toTimeString().replace(/(\d{2}:\d{2}).*/, "$1");
 
-		if (cas < -15)
-			cas = false;
-		else if (cas < 1) {
-			if (tab[i].typ != "online")
-				cas = '<span class="blink1">○</span><span class="blink2">○</span>';
-			else
-				cas = '<span class="blink1">●</span><span class="blink2">●</span>';
-			}
-		else if (cas < 2) {
-			if (tab[i].typ != "online")
-				cas = "~1&nbsp;min";
-			else
-				cas = "&lt;1&nbsp;min";
-			}
+		// cas = '<span class="blink1">&lt1&nbsp;min</span><span class="blink2"></span>';
+
+		if (cas < -15) { cas = false; }
+		else if (cas < 1) { cas = "&lt1&nbsp;min"; }
+		else if (cas < 2) { cas = "~1&nbsp;min"; }
 		else {
 			if (cas <= (maxTimeMin + 1))
 				cas = (cas - 1) + "&nbsp;min";
@@ -494,7 +486,7 @@ function zobraz() {
 			colL = $('<div/>').html('<span class="linka ' + web + ' l' + (convertLid[tab[i].linka] != undefined ? convertLid[tab[i].linka] : tab[i].linka) + '">' + (convertL[tab[i].linka] != undefined ? convertL[tab[i].linka] : tab[i].linka) + '</span>').html();
 			if ((typeof ciele !== "undefined") && (typeof ciele[tab[i].ciel] !== "undefined")) {
 				colS = $('<div/>').html(ciele[tab[i].ciel]).html();
-				console.log("colS: " + colS);
+				console.log("colS: " + colS + "ciele: " + ciele + "tab[i].ciel: " + tab[i].ciel + "tab[i].ciel: " + ciele[tab[i].ciel]);
 
 				var found_match = false;
 
