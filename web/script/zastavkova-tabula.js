@@ -426,6 +426,8 @@ function zobraz() {
 		return;
 	}
 
+	// cielove zastavky smerom z mesta
+	var not_city = ["OD Slimák", "Astronomická"];
 	var currentTime = new Date();
 	var teraz = currentTime.getTime();
 
@@ -490,10 +492,18 @@ function zobraz() {
 
 		if (cas != false) {
 			colL = $('<div/>').html('<span class="linka ' + web + ' l' + (convertLid[tab[i].linka] != undefined ? convertLid[tab[i].linka] : tab[i].linka) + '">' + (convertL[tab[i].linka] != undefined ? convertL[tab[i].linka] : tab[i].linka) + '</span>').html();
-			if ((typeof ciele !== "undefined") && (typeof ciele[tab[i].ciel] !== "undefined"))
+			if ((typeof ciele !== "undefined") && (typeof ciele[tab[i].ciel] !== "undefined")) {
 				colS = $('<div/>').html(ciele[tab[i].ciel]).html();
-			else
+				console.log("colS: " + colS);
+				/*for (var i = 0; i < not_city.length; i++) {
+					if (colS.includes(not_city[i])) {
+						//
+					}
+				}*/
+			}
+			else {
 				colS = "";
+			}
 
 			colX = "";
 			if ((tab[i].typ == "online") && (typeof vozidla !== "undefined") && (vozidla[tab[i].issi] != undefined)) {
