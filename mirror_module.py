@@ -10,7 +10,7 @@ def focus_window(title):
     run_command("wmctrl - \"{0}\"".format(title))
 
 def set_file_mode(mode):
-    mode_file = open(".\MODE", "w")
+    mode_file = open("/home/pi/doc/mirrorrim/MODE", "w")
     mode_file.write(mode)
     mode_file.close()
 

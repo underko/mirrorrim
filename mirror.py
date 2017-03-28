@@ -26,7 +26,7 @@ def reset_program():
     run_command("./startup.sh")
 
 def is_mode_set(mode):
-    mode_file = open(".\MODE", "r")
+    mode_file = open("/home/pi/doc/mirrorrim/MODE", "r")
     content = mode_file.readline()
     mode_file.close()
 
@@ -36,7 +36,7 @@ def is_mode_set(mode):
         return False
 
 def set_mode_file(mode):
-    mode_file = open(".\MODE", "w")
+    mode_file = open("/home/pi/doc/mirrorrim/MODE", "w")
     content = mode_file.write(mode)
     mode_file.close()
 
