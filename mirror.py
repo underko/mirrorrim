@@ -50,7 +50,7 @@ def is_mode_set(mode):
         return False
 
 def reset_program():
-
+    run_command("./startup.sh")
 
 def set_mode_file(mode):
     mode_file = open(".\MODE", "w")
