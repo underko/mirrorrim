@@ -25,7 +25,7 @@ while True:
         time.sleep(10)
         set_mode_file("DEFAULT")
     else:
-        if current_time.tm_hour >= time_night_start || current_time.tm_hour <= time_night_end:
+        if current_time.tm_hour >= time_night_start or current_time.tm_hour <= time_night_end:
             print("Debug: Night mode.")
             if (pir.motion_detected):
                 print("Debug: Night mode. Motion detected.")
@@ -50,7 +50,7 @@ def is_mode_set(mode):
         return False
 
 def reset_program():
-    
+
 
 def set_mode_file(mode):
     mode_file = open(".\MODE", "w")
