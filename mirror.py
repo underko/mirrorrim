@@ -4,6 +4,42 @@ import subprocess
 import time
 from gpiozero import MotionSensor
 
+def run_command(command):
+    subprocess.Popen(command)
+
+def focus_window(title):
+    run_command("wmctrl - \"{0}\"".format(title))
+
+def set_default_mode():
+    focus_window("Mirrorrim - Default Screen")
+
+def set_imhd_timetable_mode():
+    focus_window("Mirrorrim - IMHD Timetable")
+
+def set_night_mode():
+    focus_window("Mirrorrim - Night screen")
+
+def set_screen_off():
+    print("Debug: Screen turned off TMP function.")
+
+def reset_program():
+    run_command("./startup.sh")
+
+def is_mode_set(mode):
+    mode_file = open(".\MODE", "r")
+    content = mode_file.readline()
+    mode_file.close()
+
+    if mode in content:
+        return True
+    else:
+        return False
+
+def set_mode_file(mode):
+    mode_file = open(".\MODE", "w")
+    content = mode_file.write(mode)
+    mode_file.close()
+
 time_night_start = 22
 time_night_end = 8
 
@@ -38,39 +74,3 @@ while True:
             set_default_mode()
 
     time.sleep(1)
-
-def is_mode_set(mode):
-    mode_file = open(".\MODE", "r")
-    content = mode_file.readline()
-    mode_file.close()
-
-    if mode in content:
-        return True
-    else:
-        return False
-
-def reset_program():
-    run_command("./startup.sh")
-
-def set_mode_file(mode):
-    mode_file = open(".\MODE", "w")
-    content = mode_file.write(mode)
-    mode_file.close()
-
-def set_default_mode():
-    focus_window("Mirrorrim - Default Screen")
-
-def set_imhd_timetable_mode():
-    focus_window("Mirrorrim - IMHD Timetable")
-
-def set_night_mode():
-    focus_window("Mirrorrim - Night screen")
-
-def set_screen_off():
-    print("Debug: Screen turned off TMP function.")
-
-def focus_window(title):
-    run_command("wmctrl - \"{0}\"".format(title))
-
-def run_command(command):
-    subprocess.Popen(command)
