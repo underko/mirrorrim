@@ -2,6 +2,7 @@
 
 import subprocess
 import time
+import datetime
 from gpiozero import MotionSensor
 
 def run_command(command):
@@ -48,7 +49,7 @@ pir = MotionSensor(4)
 print("Debug: Starting")
 
 while True:
-    current_time = time.localtime
+    current_time = datetime.datetime.now()
     print("Debug: current_time: {0}".format(current_time))
     if is_mode_set("RESET"):
         print("Debug: RESET mode. Reseting")
@@ -61,7 +62,7 @@ while True:
         time.sleep(10)
         set_mode_file("DEFAULT")
     else:
-        if current_time.tm_hour >= time_night_start or current_time.tm_hour <= time_night_end:
+        if current_time.hour >= time_night_start or current_time.hour <= time_night_end:
             print("Debug: Night mode.")
             if (pir.motion_detected):
                 print("Debug: Night mode. Motion detected.")
