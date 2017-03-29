@@ -1,3 +1,7 @@
+# -*- coding: utf-8-*-
+
+import re
+
 WORDS = ["TRAM", "BUS", "PUBLIC", "TRANSPORT", "TIMETABLE", "SCHEDULE", "RESET"]
 PRIORITY = 10
 
