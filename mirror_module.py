@@ -1,13 +1,5 @@
-# interactive mirror by xjanockom
-
 WORDS = ["TRAM", "BUS", "PUBLIC", "TRANSPORT", "TIMETABLE", "SCHEDULE", "RESET"]
 PRIORITY = 10
-
-def run_command(command):
-    subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
-
-def focus_window(title):
-    run_command('wmctrl -a "{0}"'.format(title))
 
 def set_file_mode(mode):
     mode_file = open("/home/pi/doc/mirrorrim/MODE", "w")

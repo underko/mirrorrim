@@ -21,10 +21,10 @@ def set_night_mode():
     focus_window("Mirrorrim - Night screen")
 
 def set_screen_off():
-    print("Debug: Screen turned off TMP function.")
+    run_command('xset dpms force off')
 
 def reset_program():
-    run_command("./startup.sh")
+    run_command("/home/pi/doc/mirrorrim/startup.sh")
 
 def is_mode_set(mode):
     mode_file = open("/home/pi/doc/mirrorrim/MODE", "r")
@@ -41,6 +41,9 @@ def set_mode_file(mode):
     content = mode_file.write(mode)
     mode_file.close()
 
+def reload_chrome():
+    run_command("/home/pi/doc/mirrorrim/refresh.sh")
+
 time_night_start = 22
 time_night_end = 8
 
@@ -48,9 +51,19 @@ pir = MotionSensor(4)
 
 print("Debug: Starting")
 
+reset_counter = 0
+reset_limit = 300
+
 while True:
     current_time = datetime.datetime.now()
     print("Debug: current_time: {0}".format(current_time))
+
+    reset_counter += 1
+    if reset_counter >= reset_limit:
+        print("Debug: Automatic reset.")
+        reset_counter = 0
+        reload_chrome()
+    
     if is_mode_set("RESET"):
         print("Debug: RESET mode. Reseting")
         reset_program()
