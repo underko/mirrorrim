@@ -12,12 +12,15 @@ def focus_window(title):
     run_command('wmctrl -a "{0}"'.format(title))
 
 def set_default_mode():
+    run_command('xset dpms force on')
     focus_window("Mirrorrim - Default Screen")
 
 def set_imhd_timetable_mode():
+    run_command('xset dpms force on')
     focus_window("Mirrorrim - IMHD Timetable")
 
 def set_night_mode():
+    run_command('xset dpms force on')
     focus_window("Mirrorrim - Night screen")
 
 def set_screen_off():
@@ -77,7 +80,7 @@ while True:
     else:
         if current_time.hour >= time_night_start or current_time.hour <= time_night_end:
             print("Debug: Night mode.")
-            if (pir.motion_detected):
+            if pir.motion_detected:
                 print("Debug: Night mode. Motion detected.")
                 set_night_mode()
             else:
