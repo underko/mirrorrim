@@ -6,7 +6,7 @@ import datetime
 from gpiozero import MotionSensor
 
 def run_command(command):
-    subprocess.Popen(command)
+    subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
 
 def focus_window(title):
     run_command("wmctrl - \"{0}\"".format(title))
