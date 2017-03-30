@@ -10,9 +10,6 @@ def set_file_mode(mode):
     mode_file.write(mode)
     mode_file.close()
 
-def isValid(text):
-    return any(word.lower() in text.lower() for word in WORDS)
-
 def handle(text, mic, profile):
     timetable = ["TRAM", "BUS", "PUBLIC", "TRANSPORT", "TIMETABLE", "SCHEDULE"]
     reset = ["RESET"]
@@ -23,3 +20,6 @@ def handle(text, mic, profile):
         set_file_mode("RESET")
     else:
         pass
+
+def isValid(text):
+    return any(word.lower() in text.lower() for word in WORDS)
