@@ -47,13 +47,12 @@ def set_mode_file(mode):
 def reload_chrome():
     run_command("/home/pi/doc/mirrorrim/refresh.sh")
 
-def jasper_active():
-    # todo return true if jasper is running
-    # should be >2 lines
-    # jasper_processes=$(ps -ef | grep '/home/pi/jasper/jasper.py' | wc -l)
-
-def start_jasper():
-    run_command('/home/pi/jasper/jasper.py')
+def check_jasper():
+    try:
+        subprocess.check_output(["pidof", "python2"])
+    except expression as identifier:
+        print("Debug: Jasper off, starting.")
+        run_command("/home/pi/jasper/jasper.py &")
 
 time_night_start = 22
 time_night_end = 8
@@ -63,14 +62,13 @@ pir = MotionSensor(4)
 print("Debug: Starting")
 
 reset_counter = 0
-reset_limit = 300
+reset_limit = 30
 
 while True:
     current_time = datetime.datetime.now()
     print("Debug: current_time: {0}".format(current_time))
 
-    if jasper_active() is False:
-        start_jasper()
+    check_jasper()
 
     reset_counter += 1
     if reset_counter >= reset_limit:
