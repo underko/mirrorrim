@@ -16,7 +16,7 @@ pkill unclutter
 unclutter -idle 1 &
 
 # start jasper
-/home/pi/jasper/jasper.py
+/home/pi/jasper/jasper.py &
 
 # open chromium windows with mirror screens for faster switching between them
 chromium-browser --disable-web-security --user-data-dir --new-window --kiosk --test-type "$DIR/web/imhd_timetable.html" &
@@ -26,7 +26,7 @@ chromium-browser --disable-web-security --user-data-dir --new-window --kiosk --t
 sleep 5
 
 # start mirror controller after delay
-python /home/pi/doc/mirrorrim/mirror.py
+python /home/pi/doc/mirrorrim/mirror.py &
 
 # focus default screen
 wmctrl -a "MirrorriM - Default Screen"
