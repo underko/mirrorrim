@@ -18,6 +18,9 @@ unclutter -idle 1 &
 # start jasper
 /home/pi/jasper/jasper.py &
 
+# init default mode
+echo "DEFAULT" > /home/pi/doc/mirrorrim/MODE
+
 # open chromium windows with mirror screens for faster switching between them
 chromium-browser --disable-web-security --user-data-dir --new-window --kiosk --test-type "$DIR/web/imhd_timetable.html" &
 chromium-browser --disable-web-security --user-data-dir --new-window --kiosk --test-type "$DIR/web/night_screen.html" &
