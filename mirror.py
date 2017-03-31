@@ -50,7 +50,7 @@ def reload_chrome():
 def check_jasper():
     try:
         subprocess.check_output(["pidof", "python2"])
-    except expression as identifier:
+    except:
         print("Debug: Jasper off, starting.")
         run_command("/home/pi/jasper/jasper.py &")
 
